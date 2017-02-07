@@ -34,23 +34,23 @@
 
 	 var ball = new THREE.SphereGeometry(1, 32, 32);
 
-	 var sunMaterial = new THREE.MeshBasicMaterial( { color: 0xf79336 } );
+	 var sunMaterial = new THREE.MeshPhongMaterial( { color: 0xf79336 } );
    var sun = new THREE.Mesh(ball, sunMaterial);
-   sun.scale.set(0.4, 0.4, 0.4);
+   sun.scale.set(0.5, 0.5, 0.5);
 
-   var earthMaterial = new THREE.MeshBasicMaterial( { color: 0x095993 } );
+   var earthMaterial = new THREE.MeshPhongMaterial( { color: 0x095993 } );
    var earth = new THREE.Mesh(ball, earthMaterial);
-   earth.scale.set(0.2, 0.2, 0.2);
+   earth.scale.set(0.3, 0.3, 0.3);
    earth.position.x = 5;
 
-	 var moonMaterial = new THREE.MeshBasicMaterial( { color: 0xcbcbcb } );
+	 var moonMaterial = new THREE.MeshPhongMaterial( { color: 0xcbcbcb } );
    var moon = new THREE.Mesh(ball, moonMaterial);
-   moon.scale.set(0.1, 0.1, 0.1);
+   moon.scale.set(0.15, 0.15, 0.15);
    moon.position.x = 2;
 
-   var marsMaterial = new THREE.MeshBasicMaterial( { color: 0xff4500 } );
+   var marsMaterial = new THREE.MeshPhongMaterial( { color: 0xff4500 } );
    var mars = new THREE.Mesh(ball, marsMaterial);
-   mars.scale.set(0.15, 0.15, 0.15);
+   mars.scale.set(0.3, 0.3, 0.3);
    mars.position.x = 7;
 
 	 solarSystem.add(sun);
@@ -58,9 +58,12 @@
    sun.add(mars);
    earth.add(moon);
 
-   var light = new THREE.PointLight( 0xff0000, 1, 100 );
-   light.position.set( 50, 50, 50 );
+   var light = new THREE.PointLight( 0xffffff, 20, 100 );
+   light.position.set( 0, 0, 0 );
    scene.add( light );
+
+   var ambient = new THREE.AmbientLight( 0x555555 );
+scene.add(ambient);
 
 	 // This is executed for each frames
 	 function render() {
@@ -68,8 +71,8 @@
 
 	     // Animation code goes here
 	     //sun.position.x += 0.001;
-       sun.rotation.y += 0.01;
-       earth.rotation.y += 0.01;
+       sun.rotation.z += 0.01;
+       earth.rotation.z += 0.01;
 
 	     renderer.render( scene, camera );
 	 }
