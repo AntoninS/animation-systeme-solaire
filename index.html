@@ -34,7 +34,7 @@
 
 	 var ball = new THREE.SphereGeometry(1, 32, 32);
 
-	 var sunMaterial = new THREE.MeshBasicMaterial( { color: 0xff4500 } );
+	 var sunMaterial = new THREE.MeshBasicMaterial( { color: 0xf79336 } );
    var sun = new THREE.Mesh(ball, sunMaterial);
    sun.scale.set(0.4, 0.4, 0.4);
 
@@ -48,15 +48,19 @@
    moon.scale.set(0.1, 0.1, 0.1);
    moon.position.x = 2;
 
-   var marsMaterial = new THREE.MeshBasicMaterial( { color: 0xf79336 } );
+   var marsMaterial = new THREE.MeshBasicMaterial( { color: 0xff4500 } );
    var mars = new THREE.Mesh(ball, marsMaterial);
-   mars.scale.set(0.3, 0.3, 0.3);
+   mars.scale.set(0.15, 0.15, 0.15);
    mars.position.x = 7;
 
 	 solarSystem.add(sun);
    sun.add(earth);
    sun.add(mars);
    earth.add(moon);
+
+   var light = new THREE.PointLight( 0xff0000, 1, 100 );
+   light.position.set( 50, 50, 50 );
+   scene.add( light );
 
 	 // This is executed for each frames
 	 function render() {
