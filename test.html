@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<title>My first three.js app</title>
+	<style>
+	 body { margin: 0; }
+	 canvas { width: 100%; height: 90% }
+	 #toolbar { color: white; position: absolute; }
+	 #toolbar a { color: lightgrey; }
+	 #toolbar a:hover { text-decoration: none; }
+	</style>
+    </head>
+    <body>
+	<p id="toolbar">
+	    <a href="https://threejs.org/docs/index.html#Manual/Introduction/Creating_a_scene">Documentation</a>
+	    <a href="mailto:guillaum.bouchard@gmail.com">guillaum.bouchard@gmail.com</a>
+		<a>Modification by Jérémy et Johann</a>
+	</p>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
+	<script>
+	 // Initialisation of the scene / camera / renderer
+	 var scene = new THREE.Scene();
+	 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+	 var renderer = new THREE.WebGLRenderer();
+	 renderer.setSize( window.innerWidth, window.innerHeight );
+	 renderer.shadowMap.enabled = true;
+	 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // default THREE.PCFShadowMap
+	 document.body.appendChild( renderer.domElement );
+	 var speed = 1;
+	 var zoom = 1;
+	 camera.position.z = 5;
+	 //Create a front SpotLight and turn on shadows for the light
+	var spotLightFront = new THREE.SpotLight( 0xffffff);
+	spotLightFront.position.set(0*zoom,0*zoom,1*zoom);
+	spotLightFront.castShadow = true;
+	spotLightFront.shadow.mapSize.width = 1024;
+	spotLightFront.shadow.mapSize.height = 1024;
+	spotLightFront.shadow.camera.near = 500;
+	spotLightFront.shadow.camera.far = 4000;
+	spotLightFront.shadow.camera.fov = 30;
+	scene.add(spotLightFront);
+	 //Create a back SpotLight and turn on shadows for the light
+	var spotLightBottomack = new THREE.SpotLight( 0xffffff);
+	spotLightBottomack.position.set(0*zoom,0*zoom,-1*zoom);
+	spotLightBottomack.castShadow = true;
+	spotLightBottomack.shadow.mapSize.width = 1024;
+	spotLightBottomack.shadow.mapSize.height = 1024;
+	spotLightBottomack.shadow.camera.near = 500;
+	spotLightBottomack.shadow.camera.far = 4000;
+	spotLightBottomack.shadow.camera.fov = 30;
+	scene.add(spotLightBottomack);
+	//Create a left SpotLight and turn on shadows for the light
+	var spotLightLeft = new THREE.SpotLight( 0xffffff);
+	spotLightLeft.position.set(-1*zoom,0*zoom,0*zoom);
+	spotLightLeft.castShadow = true;
+	spotLightLeft.shadow.mapSize.width = 1024;
+	spotLightLeft.shadow.mapSize.height = 1024;
+	spotLightLeft.shadow.camera.near = 500;
+	spotLightLeft.shadow.camera.far = 4000;
+	spotLightLeft.shadow.camera.fov = 30;
+	scene.add(spotLightLeft);
+	//Create a right SpotLight and turn on shadows for the light
+	var spotLightRight = new THREE.SpotLight( 0xffffff);
+	spotLightRight.position.set(1*zoom,0*zoom,0*zoom);
+	spotLightRight.castShadow = true;
+	spotLightRight.shadow.mapSize.width = 1024;
+	spotLightRight.shadow.mapSize.height = 1024;
+	spotLightRight.shadow.camera.near = 500;
+	spotLightRight.shadow.camera.far = 4000;
+	spotLightRight.shadow.camera.fov = 30;
+	scene.add(spotLightRight);
+	//Create a high SpotLight and turn on shadows for the light
+	var spotLightHigh = new THREE.SpotLight( 0xffffff);
+	spotLightHigh.position.set(0*zoom,1*zoom,0*zoom);
+	spotLightHigh.castShadow = true;
+	spotLightHigh.shadow.mapSize.width = 1024;
+	spotLightHigh.shadow.mapSize.height = 1024;
+	spotLightHigh.shadow.camera.near = 500;
+	spotLightHigh.shadow.camera.far = 4000;
+	spotLightHigh.shadow.camera.fov = 30;
+	scene.add(spotLightHigh);
+	//Create a SpotLight and turn on shadows for the light
+	var spotLightBottom = new THREE.SpotLight( 0xffffff);
+	spotLightBottom.position.set(0*zoom,-1*zoom,0*zoom);
+	spotLightBottom.castShadow = true;
+	spotLightBottom.shadow.mapSize.width = 1024;
+	spotLightBottom.shadow.mapSize.height = 1024;
+	spotLightBottom.shadow.camera.near = 500;
+	spotLightBottom.shadow.camera.far = 4000;
+	spotLightBottom.shadow.camera.fov = 30;
+	scene.add(spotLightBottom);
+	 // Initialisation of your objects / materials / light
+	 var solarSystem = new THREE.Object3D();
+	 var pivotSun = new THREE.Object3D();
+	 var pivotMercury = new THREE.Object3D();
+	 var pivotVenus = new THREE.Object3D();
+	 var pivotEarth = new THREE.Object3D();
+	 var pivotMars = new THREE.Object3D();
+	 var pivotJupiter = new THREE.Object3D();
+	 var pivotSaturn = new THREE.Object3D();
+	 var pivotUranus = new THREE.Object3D();
+	 var pivotNeptune = new THREE.Object3D();
+	 var pivotSun = new THREE.Object3D();
+	 scene.add(solarSystem);
+	 scene.add(pivotSun);
+	 scene.add(pivotMercury);
+	 scene.add(pivotVenus);
+	 scene.add(pivotEarth);
+	 scene.add(pivotMars);
+	 scene.add(pivotJupiter);
+	 scene.add(pivotSaturn);
+	 scene.add(pivotUranus);
+	 scene.add(pivotNeptune);
+	 scene.add(pivotSun);
+	 solarSystem.scale.set(0.4*zoom, 0.4*zoom, 0.4*zoom);
+	 solarSystem.add(pivotSun);
+	 solarSystem.add(pivotMercury);
+	 solarSystem.add(pivotVenus);
+	 solarSystem.add(pivotEarth);
+	 solarSystem.add(pivotMars);
+	 solarSystem.add(pivotJupiter);
+	 solarSystem.add(pivotSaturn);
+	 solarSystem.add(pivotUranus);
+	 solarSystem.add(pivotNeptune);
+	 solarSystem.add(pivotSun);
+	 var ball = new THREE.SphereGeometry(1, 32, 32);
+	 var ring = new THREE.RingGeometry( 3.5, 5, 32 );
+	 /****************************************************Sun***********************************************************/
+	 var sunMaterial = new THREE.MeshPhongMaterial( { color: 0xff4500 } );
+	 var sun = new THREE.Mesh(ball, sunMaterial);
+	 sun.castShadow = true; //default is false
+	 sun.receiveShadow = true;
+	 sun.scale.set(1*zoom, 1*zoom, 1*zoom);
+	 pivotSun.add(sun);
+	 /****************************************************Mercury***********************************************************/
+	 var mercuryMaterial = new THREE.MeshPhongMaterial( { color:  0xd35400  } );
+	 var mercury = new THREE.Mesh(ball, mercuryMaterial);
+	 mercury.scale.set(0.05*zoom, 0.05*zoom, 0.05*zoom);
+	 pivotMercury.add(mercury);
+	 mercury.position.x = 1.5*zoom;
+	 mercury.castShadow = true; //default is false
+	 mercury.receiveShadow = true;
+	 /****************************************************Venus***********************************************************/
+	 var venusMaterial = new THREE.MeshPhongMaterial( { color:  0xd9a7d0a  } );
+	 var venus = new THREE.Mesh(ball, venusMaterial);
+	 venus.scale.set(0.08*zoom, 0.08*zoom, 0.08*zoom);
+	 pivotVenus.add(venus);
+	 venus.position.x = 1.9*zoom;
+	 venus.castShadow = true; //default is false
+	 venus.receiveShadow = true;
+	 /****************************************************Earth***********************************************************/
+	 var earthMaterial = new THREE.MeshPhongMaterial( { color:  0x0e98e3 } );
+	 var earth = new THREE.Mesh(ball, earthMaterial);
+	 earth.scale.set(0.09*zoom, 0.09*zoom, 0.09*zoom);
+	 pivotEarth.add(earth);
+	 earth.position.x = 2.7*zoom;
+	 earth.castShadow = true; //default is false
+	 earth.receiveShadow = true;
+	 /****************************************************Lune***********************************************************/
+	 var luneMaterial = new THREE.MeshPhongMaterial( { color:  0xecf0f1  } );
+	 var lune = new THREE.Mesh(ball, luneMaterial);
+	 lune.scale.set(0.1*zoom, 0.1*zoom, 0.1*zoom);
+	 earth.add(lune);
+	 lune.position.x = 1.5*zoom;
+	 lune.castShadow = true; //default is false
+	 lune.receiveShadow = true;
+	 /****************************************************Mars***********************************************************/
+	 var marsMaterial = new THREE.MeshPhongMaterial( { color:  0xf93d06  } );
+	 var mars = new THREE.Mesh(ball, marsMaterial);
+	 mars.scale.set(0.045*zoom, 0.045*zoom, 0.045*zoom);
+	 pivotMars.add(mars);
+	 mars.position.x = 3.2*zoom;
+	 mars.castShadow = true; //default is false
+	 mars.receiveShadow = true;
+	 /****************************************************Jupiter***********************************************************/
+	 var jupiterMaterial = new THREE.MeshPhongMaterial( { color:  0xeeba09   } );
+	 var jupiter = new THREE.Mesh(ball, jupiterMaterial);
+	 jupiter.scale.set(0.3*zoom, 0.3*zoom, 0.3*zoom);
+	 pivotJupiter.add(jupiter);
+	 jupiter.position.x = 4.2*zoom;
+	 jupiter.castShadow = true; //default is false
+	 jupiter.receiveShadow = true;
+	 /****************************************************Saturn***********************************************************/
+	 var saturnMaterial = new THREE.MeshPhongMaterial( { color:  0xf7dc6f   } );
+	 var saturn = new THREE.Mesh(ball, saturnMaterial);
+	 saturn.scale.set(0.25*zoom, 0.25*zoom, 0.25*zoom);
+	 pivotSaturn.add(saturn);
+	 saturn.position.x = 5.5*zoom;
+	 saturn.castShadow = true; //default is false
+	 saturn.receiveShadow = true;
+	 /****************************************************Saturn'ring***********************************************************/
+	 var saturnRingMaterial = new THREE.MeshPhongMaterial( { color:  0xf7dc6f, side: THREE.DoubleSide   } );
+	 var saturnRing = new THREE.Mesh(ring, saturnRingMaterial);
+	 saturnRing.scale.set(0.4*zoom, 0.4*zoom, 0.8*zoom);
+	 saturn.add(saturnRing);
+	 saturnRing.position.x = 0*zoom;
+	 saturnRing.rotation.x = 1.7
+	 saturnRing.castShadow = true; //default is false
+	 saturnRing.receiveShadow = true;
+	 /****************************************************Uranus***********************************************************/
+	 var uranusMaterial = new THREE.MeshPhongMaterial( { color:  0xaed6f1    } );
+	 var uranus = new THREE.Mesh(ball, uranusMaterial);
+	 uranus.scale.set(0.1*zoom, 0.1*zoom, 0.1*zoom);
+	 pivotUranus.add(uranus);
+	 uranus.position.x = 6.5*zoom;
+	 uranus.castShadow = true; //default is false
+	 uranus.receiveShadow = true;
+	 /****************************************************Neptune***********************************************************/
+	 var neptuneMaterial = new THREE.MeshPhongMaterial( { color:  0x2471a3     } );
+	 var neptune = new THREE.Mesh(ball, neptuneMaterial);
+	 neptune.scale.set(0.1*zoom, 0.1*zoom, 0.1*zoom);
+	 pivotNeptune.add(neptune);
+	 neptune.position.x = 7.5*zoom;
+	 neptune.castShadow = true; //default is false
+	 neptune.receiveShadow = true;
+	 /****************************************************Pluton***********************************************************/
+	 var plutonMaterial = new THREE.MeshPhongMaterial( { color:  0xc6e3e8     } );
+	 var pluton = new THREE.Mesh(ball, plutonMaterial);
+	 pluton.scale.set(0.02*zoom, 0.02*zoom, 0.02*zoom);
+	 pivotSun.add(pluton);
+	 pluton.position.x = 10*zoom;
+	 pluton.castShadow = true; //default is false
+	 pluton.receiveShadow = true;
+	 solarSystem.rotation.x = 0.3;
+	 // This is executed for each frames
+	 function render() {
+	     requestAnimationFrame( render );
+	     // Animation code goes here
+	     pivotMercury.rotation.y += 0.08 *speed;
+	     pivotVenus.rotation.y += 0.07 *speed;
+	     pivotEarth.rotation.y += 0.06 *speed;
+	     pivotMars.rotation.y += 0.05 *speed;
+	     pivotJupiter.rotation.y += 0.04 *speed;
+	     pivotSaturn.rotation.y += 0.03 *speed;
+	     pivotUranus.rotation.y += 0.02 *speed;
+	     pivotNeptune.rotation.y += 0.01 *speed;
+	     pivotSun.rotation.z += 0.005 *speed;
+	     earth.rotation.y += 0.03 * speed;
+	     renderer.render( scene, camera );
+	 }
+	 render();
+	</script>
+    </body>
+</html>
