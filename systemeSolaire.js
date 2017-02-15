@@ -5,10 +5,10 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.shadowMap.enabled = true;
 document.body.appendChild( renderer.domElement );
-var speed = 0.3;
+var speed = 0.1;
 var zoom = 2;
 camera.position.z = 5;
-camera.position.y = 2;
+camera.position.y = 5;
 camera.lookAt(new THREE.Vector3(0,0,0)); //We set the camera up on the y axis, and make it look the origin
 
 // Initialisation of objects / materials / light
@@ -17,6 +17,7 @@ var pivotSun = new THREE.Object3D();
 var pivotMercury = new THREE.Object3D();
 var pivotVenus = new THREE.Object3D();
 var pivotEarth = new THREE.Object3D();
+var pivotMoon = new THREE.Object3D();
 var pivotMars = new THREE.Object3D();
 var pivotJupiter = new THREE.Object3D();
 var pivotSaturn = new THREE.Object3D();
@@ -28,6 +29,7 @@ scene.add(pivotSun);
 scene.add(pivotMercury);
 scene.add(pivotVenus);
 scene.add(pivotEarth);
+scene.add(pivotMoon);
 scene.add(pivotMars);
 scene.add(pivotJupiter);
 scene.add(pivotSaturn);
@@ -43,8 +45,8 @@ solarSystem.add(pivotJupiter);
 solarSystem.add(pivotSaturn);
 solarSystem.add(pivotUranus);
 solarSystem.add(pivotNeptune);
-var ring = new THREE.RingGeometry( 3.5, 5, 32 );
 var ball = new THREE.SphereGeometry(1, 32, 32);
+var ring = new THREE.RingGeometry( 3.5, 5, 32 );
 
 // SUN
 var sunMaterial = new THREE.MeshPhongMaterial( { } );
@@ -58,10 +60,10 @@ var earthMaterial = new THREE.MeshPhongMaterial( { } );
 var earth = new THREE.Mesh(ball, earthMaterial);
 earthMaterial.map = THREE.ImageUtils.loadTexture('images/earthmap1k.jpg')
 earth.scale.set(0.09*zoom, 0.09*zoom, 0.09*zoom);
-pivotEarth.add(earth);
 earth.position.x = 2.7*zoom;
 earth.castShadow = true; //default is false
 earth.receiveShadow = true;
+pivotEarth.add(earth);
 
 // MOON
 var moonMaterial = new THREE.MeshPhongMaterial( { } );
@@ -71,7 +73,8 @@ moon.scale.set(0.1*zoom, 0.1*zoom, 0.1*zoom);
 moon.position.x = 1.5*zoom;
 moon.castShadow = true; //default is false
 moon.receiveShadow = true;
-earth.add(moon);
+pivotMoon.add(moon);
+earth.add(pivotMoon);
 
 // MARS
 var marsMaterial = new THREE.MeshPhongMaterial( { } );
@@ -86,7 +89,7 @@ pivotMars.add(mars);
 // LIGHT
 var light = new THREE.PointLight( 0xffffff, 2, 100 );
 light.position.set( 0, 0, 0 );
-scene.add( light );
+scene.add(light);
 
 var ambient = new THREE.AmbientLight( 0x555555 );
 scene.add(ambient);
@@ -117,13 +120,11 @@ function render() {
     mars.rotation.y += 0.01;
 */
     pivotEarth.rotation.y += 0.06 *speed;
-
+    pivotMoon.rotation.y += 0.05*speed;
     pivotMars.rotation.y += 0.05 *speed;
-
     pivotSun.rotation.y += 0.005 *speed;
-
     earth.rotation.y += 0.03 * speed;
-    sun.rotation.y += 0.01;
+    sun.rotation.y += 0.001;
 
 
     // Moon's following trace
@@ -134,7 +135,7 @@ function render() {
     var m = moon.matrixWorld;
     p.applyMatrix4(m);
     moonFollow.position.copy(p);
-    solarSystem.add(moonFollow);
+    scene.add(moonFollow);
     //---------------------------
 
 
