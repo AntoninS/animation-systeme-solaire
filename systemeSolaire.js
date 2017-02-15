@@ -8,7 +8,7 @@ document.body.appendChild( renderer.domElement );
 var speed = 0.1;
 var zoom = 2;
 camera.position.z = 5;
-camera.position.y = 5;
+camera.position.y = 3;
 camera.lookAt(new THREE.Vector3(0,0,0)); //We set the camera up on the y axis, and make it look the origin
 
 // Initialisation of objects / materials / light
@@ -23,7 +23,6 @@ var pivotJupiter = new THREE.Object3D();
 var pivotSaturn = new THREE.Object3D();
 var pivotUranus = new THREE.Object3D();
 var pivotNeptune = new THREE.Object3D();
-var pivotSun = new THREE.Object3D();
 scene.add(solarSystem);
 scene.add(pivotSun);
 scene.add(pivotMercury);
@@ -53,7 +52,7 @@ var sunMaterial = new THREE.MeshPhongMaterial( { } );
 var sun = new THREE.Mesh(ball, sunMaterial);
 sunMaterial.map = THREE.ImageUtils.loadTexture('images/sunmap.jpg')
 sun.scale.set(1*zoom, 1*zoom, 1*zoom);
-sunMaterial.side  = THREE.BackSide;
+sunMaterial.side = THREE.BackSide;
 pivotSun.add(sun);
 
 // EARTH
@@ -123,9 +122,9 @@ function render() {
     pivotEarth.rotation.y += 0.06 *speed;
     pivotMoon.rotation.y += 0.05*speed;
     pivotMars.rotation.y += 0.05 *speed;
-    pivotSun.rotation.y += 0.005 *speed;
+    //pivotSun.rotation.y += 0.005 *speed;
     earth.rotation.y += 0.03 * speed;
-    sun.rotation.y += 0.001;
+    sun.rotation.z += 0.001;
 
 
     // Moon's following trace

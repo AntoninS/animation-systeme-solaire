@@ -17,7 +17,38 @@
 	    <a href="mailto:guillaum.bouchard@gmail.com">guillaum.bouchard@gmail.com</a>
 	</p>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.js"></script>
-  <script src="systemeSolaire.js"></script>
+
+  <script src="js/Three.js"></script>
+  <script src="js/Detector.js"></script>
+  <script src="js/Stats.js"></script>
+  <script src="js/TrackballControls.js"></script>
+  <script src="js/THREEx.KeyboardState.js"></script>
+  <script src="js/THREEx.FullScreen.js"></script>
+  <script src="js/THREEx.WindowResize.js"></script>
+
+  <!-- ---------------- Custom Shader Code ------------------------ -->
+<script id="vertexShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+    vNormal = normalize( normalMatrix * normal );
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+</script>
+
+<!-- fragment shader a.k.a. pixel shader -->
+<script id="fragmentShader" type="x-shader/x-vertex">
+varying vec3 vNormal;
+void main()
+{
+	float intensity = pow( 0.7 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) ), 4.0 );
+    gl_FragColor = vec4(1.0, 0.81, 0.0, 1) * intensity;
+}
+</script>
+<!-- ----------------------------------------------------------- -->
+
+
+<script src="beta.js"></script>
 
     </body>
 </html>
