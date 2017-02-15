@@ -146,7 +146,7 @@ function init()
 	// EARTH
 	var earthMaterial = new THREE.MeshPhongMaterial( { } );
 	var earth = new THREE.Mesh(ball, earthMaterial);
-	earthMaterial.map = THREE.ImageUtils.loadTexture('images/earthmap1k.jpg')
+	earthMaterial.map = THREE.ImageUtils.loadTexture('images/earthmap.jpg')
 	earth.scale.set(0.09*zoom, 0.09*zoom, 0.09*zoom);
 	earth.position.x = 2.7*zoom;
 	earth.castShadow = true; //default is false
@@ -167,7 +167,7 @@ function init()
 	// MARS
 	var marsMaterial = new THREE.MeshPhongMaterial( { } );
 	var mars = new THREE.Mesh(ball, marsMaterial);
-	marsMaterial.map = THREE.ImageUtils.loadTexture('images/marsmap2k.jpg')
+	marsMaterial.map = THREE.ImageUtils.loadTexture('images/marsmap.jpg')
 	mars.scale.set(0.045*zoom, 0.045*zoom, 0.045*zoom);
 	mars.position.x = 3.2*zoom;
 	mars.castShadow = true; //default is false
