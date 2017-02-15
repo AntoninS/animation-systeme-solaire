@@ -33,36 +33,28 @@ function init()
 	container.appendChild( renderer.domElement );
 	var speed = 0.1;
 	var zoom = 2;
+
 	// EVENTS
 	THREEx.WindowResize(renderer, camera);
 	THREEx.FullScreen.bindKey({ charCode : 'm'.charCodeAt(0) });
+
 	// CONTROLS
 	controls = new THREE.TrackballControls( camera );
+
 	// STATS
 	stats = new Stats();
 	stats.domElement.style.position = 'absolute';
 	stats.domElement.style.bottom = '0px';
 	stats.domElement.style.zIndex = 100;
 	container.appendChild( stats.domElement );
+
 	// LIGHT
 	var light = new THREE.PointLight(0xffffff);
 	light.position.set(0,0,0);
 	scene.add(light);
-	// FLOOR
-	var floorTexture = new THREE.ImageUtils.loadTexture( 'images/checkerboard.jpg' );
-	floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-	floorTexture.repeat.set( 10, 10 );
-	var floorMaterial = new THREE.MeshBasicMaterial( { map: floorTexture, side: THREE.DoubleSide } );
-	var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
-	var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-	floor.position.y = -0.5;
-	floor.rotation.x = Math.PI / 2;
-	//scene.add(floor);
 
-
-	// PLANETS
-
-
+	var ambient = new THREE.AmbientLight( 0x555555 );
+	scene.add(ambient);
 
 	// SKYBOX/FOG
 	var imagePrefix = "images/skybox-";
@@ -205,5 +197,6 @@ function update()
 
 function render()
 {
+
 	renderer.render( scene, camera );
 }
