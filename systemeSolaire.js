@@ -109,7 +109,7 @@ scene.add(ambient);
 
 // Moon's following trace material
 var followMaterial = new THREE.MeshBasicMaterial( { color : 0xffffff } );
-
+var countFollow = 0;
 // This is executed for each frames
 function render() {
     requestAnimationFrame( render );
@@ -128,14 +128,20 @@ function render() {
 
 
     // Moon's following trace
-    var moonFollow = new THREE.Mesh(ball, followMaterial);
-    moonFollow.scale.set(0.01, 0.01, 0.01 );
+    countFollow += 1;
+
+    window['moonFollow' + countFollow] = new THREE.Mesh(ball, followMaterial);
+    window['moonFollow' + countFollow].scale.set(0.01, 0.01, 0.01 );
 
     var p = new THREE.Vector3();
     var m = moon.matrixWorld;
     p.applyMatrix4(m);
-    moonFollow.position.copy(p);
-    scene.add(moonFollow);
+    window['moonFollow' + countFollow].position.copy(p);
+    scene.add(window['moonFollow' + countFollow]);
+    console.log(countFollow);
+    if(countFollow > 100){
+      scene.remove(window['moonFollow' + (countFollow-99)]);
+    }
     //---------------------------
 
 
