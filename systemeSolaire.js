@@ -53,6 +53,7 @@ var sunMaterial = new THREE.MeshPhongMaterial( { } );
 var sun = new THREE.Mesh(ball, sunMaterial);
 sunMaterial.map = THREE.ImageUtils.loadTexture('images/sunmap.jpg')
 sun.scale.set(1*zoom, 1*zoom, 1*zoom);
+sunMaterial.side  = THREE.BackSide;
 pivotSun.add(sun);
 
 // EARTH
@@ -134,7 +135,7 @@ function render() {
     window['moonFollow' + countFollow].scale.set(0.01, 0.01, 0.01 );
 
     var p = new THREE.Vector3();
-    var m = moon.matrixWorld;
+    var m = earth.matrixWorld;
     p.applyMatrix4(m);
     window['moonFollow' + countFollow].position.copy(p);
     scene.add(window['moonFollow' + countFollow]);
