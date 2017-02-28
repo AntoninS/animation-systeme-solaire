@@ -7,12 +7,11 @@ var clock = new THREE.Clock();
 // custom global variables
 var cube;
 
-init();
-animate();
+
+
 
 // FUNCTIONS
-function init()
-{
+
 	// SCENE
 	scene = new THREE.Scene();
 	// CAMERA
@@ -20,7 +19,8 @@ function init()
 	var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,15,3);
+	camera.position.z = 10;
+	camera.position.y = 5;
 	camera.lookAt(scene.position);
 	// RENDERER
 	if ( Detector.webgl )
@@ -175,8 +175,6 @@ function init()
 	pivotMars.add(mars);
 
 
-}
-
 function animate()
 {
   requestAnimationFrame( animate );
@@ -197,6 +195,19 @@ function update()
 
 function render()
 {
+	sun.rotation.y -= 0.01 *speed;
+
+	pivotEarth.rotation.y += 0.06 *speed;			// Pivot = rotation around the sun
+	earth.rotation.y += 0.03 * speed;
+
+	pivotMoon.rotation.y += 0.1*speed;
+
+	mars.rotation.y += 0.03 *speed;
+	pivotMars.rotation.y += 0.05 *speed;
+	//pivotSun.rotation.y += 0.005 *speed;
+
 
 	renderer.render( scene, camera );
 }
+
+animate();
